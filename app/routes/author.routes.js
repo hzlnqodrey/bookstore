@@ -1,5 +1,5 @@
 const { authJWT }               = require('../middlewares')
-const controller                = require('../controllers/book.controller')
+const controller                = require('../controllers/author.controller')
 const { body, validationResult } = require('express-validator')
 
 module.exports = function (app) {
@@ -32,10 +32,10 @@ module.exports = function (app) {
     app.post('/api/author/search', controller.search_author)
 
     // todo: route to GET - THE NEWEST 10 authorS
-    app.get('/api/author/recent',  [ authJWT.verifyToken ], controller.findAllRecent_authors)
+    app.get('/api/author/recent',  [ authJWT.verifyToken ], controller.findAllRecent_author)
 
     // todo: route to GET a single author
-    app.get('/api/author/:id', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findOne_authors)
+    app.get('/api/author/:id', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findOne_author)
 
     // todo: route to GET all authors
     app.get('/api/authors/', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findAll_authors)

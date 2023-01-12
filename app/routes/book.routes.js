@@ -39,10 +39,10 @@ module.exports = function (app) {
     app.post('/api/book/search', controller.search_book) 
 
     // todo: route to GET - THE NEWEST 10 bookS
-    app.get('/api/book/recent',  [ authJWT.verifyToken ], controller.findAllRecent_books)
+    app.get('/api/book/recent',  [ authJWT.verifyToken ], controller.findAllRecent_book)
 
     // todo: route to GET a single book
-    app.get('/api/book/:id', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findOne_books)
+    app.get('/api/book/:id', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findOne_book)
 
     // todo: route to GET all books
     app.get('/api/books/', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findAll_books)
