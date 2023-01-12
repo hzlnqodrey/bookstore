@@ -1,5 +1,6 @@
 const { authJWT }               = require('../middlewares')
 const controller                = require('../controllers/book.controller')
+const { body, validationResult } = require('express-validator')
 
 module.exports = function (app) {
 
@@ -35,7 +36,7 @@ module.exports = function (app) {
     app.delete('/api/book/:id/delete', [ authJWT.verifyToken, authJWT.isAdmin ], controller.delete_book)
 
     // todo: route to POST - SEARCH QUERY FOR PUBLISHED book
-    app.post('/api/book/search', controller.search_book) // TODO: DISKUSI SAMA SABIK WHETHER QUERY LEWAT ATRIBUT TITLE OR CONTENT
+    app.post('/api/book/search', controller.search_book) 
 
     // todo: route to GET - THE NEWEST 10 bookS
     app.get('/api/book/recent',  [ authJWT.verifyToken ], controller.findAllRecent_books)

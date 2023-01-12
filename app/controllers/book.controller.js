@@ -16,6 +16,7 @@ Book.belongsTo(Author, { foreignKey: 'author_id', as: 'author_info' })
 // todo: CREATE BOOK
 exports.create_book = async (req, res) => {
     try {
+
         if ( !req.body.title ) {
             return res.status(400).send({
                 success: false,
@@ -30,13 +31,12 @@ exports.create_book = async (req, res) => {
             })
         }
 
-
-        const data = await Book.create({
+        const data_book = await Book.create({
             title: req.body.title,
             summary: req.body.summary,
         })
 
-        if ( !data ) {
+        if ( !data_book ) {
             return res.status(500).send({
                 success: false,
                 message: "Book could not be created"
@@ -47,7 +47,7 @@ exports.create_book = async (req, res) => {
             success: true,
             message: "Book was successfully created!",
             data: {
-                book
+                data_book
             }
         })
 
@@ -148,7 +148,7 @@ exports.update_book = async (req, res) => {
 }
 
 // todo: POST delete an article
-exports.delete_abook = async (req, res) => {
+exports.delete_book = async (req, res) => {
     const id = req.params.id
 
     try {
@@ -179,7 +179,7 @@ exports.delete_abook = async (req, res) => {
 // todo: POST - SEARCH QUERY
 exports.search_book = async (req, res) => {
     let SearchValue = ''
-    
+
     if ( req.body.search ) {
         SearchValue = req.body.search
     } 
