@@ -30,6 +30,9 @@ db.sequelize = sequelize
 // USE DB in MODELS
 db.user = require('../models/user.model')(sequelize, Sequelize)
 db.role = require('../models/role.model')(sequelize, Sequelize)
+db.book = require('../models/book.model')(sequelize, Sequelize)
+db.author = require('../models/author.model')(sequelize, Sequelize)
+db.publisher = require('../models/publisher.model')(sequelize, Sequelize)
 
 // Chaining Many-To-Many Relationship Association with belongToMany
 // The association between Users and Roles is Many-to-Many relationship:

@@ -19,20 +19,20 @@ db.sequelize.sync({ force: false })
         console.error("Failed to sync to DB", error)
     })
 
-// function initial() {    
-//     Role.create({
-//         id: 1,
-//         name: "user",
-//         description: "user role - authorized by token"
-//     });
+function initial() {    
+    Role.create({
+        id: 1,
+        name: "user",
+        description: "user role - authorized by token"
+    });
 
-//     Role.create({
-//         id: 2,
-//         name: "admin",
-//         description: "admin role - highest authority"
-//     });
-// }
-// initial()
+    Role.create({
+        id: 2,
+        name: "admin",
+        description: "admin role - highest authority"
+    });
+}
+initial()
 
 
 // MIDDLEWARE
