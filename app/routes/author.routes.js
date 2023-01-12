@@ -13,14 +13,7 @@ module.exports = function (app) {
     })
 
     // todo: route to POIST a single
-    app.post('/api/author/create', [ authJWT.verifyToken, authJWT.isAdmin ], [
-        // Validate and sanitize fields.
-        body("name", "Author name must not be empty.")
-            .trim()
-            .isLength({ min: 1 })
-            .escape(),
-
-    ], controller.create_author)
+    app.post('/api/author/create', [ authJWT.verifyToken, authJWT.isAdmin ], controller.create_author)
 
     // todo: route to POST update an author by the id
     app.put('/api/author/:id/update', [ authJWT.verifyToken, authJWT.verifyToken ], controller.update_author)

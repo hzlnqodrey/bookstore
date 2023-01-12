@@ -19,20 +19,20 @@ db.sequelize.sync({ force: false })
         console.error("Failed to sync to DB", error)
     })
 
-function initial() {    
-    Role.create({
-        id: 1,
-        name: "user",
-        description: "user role - authorized by token"
-    });
+// function initial() {    
+//     Role.create({
+//         id: 1,
+//         name: "user",
+//         description: "user role - authorized by token"
+//     });
 
-    Role.create({
-        id: 2,
-        name: "admin",
-        description: "admin role - highest authority"
-    });
-}
-initial()
+//     Role.create({
+//         id: 2,
+//         name: "admin",
+//         description: "admin role - highest authority"
+//     });
+// }
+// initial()
 
 
 // MIDDLEWARE
@@ -60,6 +60,9 @@ app.get('/', (req, res) => {
 // Routes
 require('./app/routes/auth.routes')(app)
 require('./app/routes/user.routes')(app)
+require('./app/routes/book.routes')(app)
+require('./app/routes/author.routes')(app)
+require('./app/routes/publisher.routes')(app)
 
 
 app.listen(PORT, () => {

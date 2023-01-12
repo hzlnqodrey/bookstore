@@ -17,6 +17,14 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
 
+        authorId: {
+            type: Sequelize.INTEGER,
+        },
+
+        publisherId: {
+            type: Sequelize.INTEGER,
+        }
+
     })
 
     return Book

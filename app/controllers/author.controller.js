@@ -3,16 +3,14 @@ const sequelize         = db.sequelize
 const Sequelize         = db.Sequelize
 const Book              = db.book
 const Author            = db.author
-const publisher         = db.publisher
+const Publisher         = db.publisher
 const Op                = db.Sequelize.Op
 const { QueryTypes }    = require('sequelize')
 
 // Association
 // Author - Book
-Author.hasMany(Book, { foreignKey: 'author_id'})
-Book.belongsTo(Author, { foreignKey: 'author_id', as: 'author_info' })
 
-// todo: CREATE BOOK
+// todo: CREATE AUTHOR
 exports.create_author = async (req, res) => {
     try {
         if ( !req.body.name ) {
@@ -48,7 +46,7 @@ exports.create_author = async (req, res) => {
     }
 }
 
-// todo: GET all books
+// todo: GET all Authors
 exports.findAll_authors = async (req, res) => {
     
     try {
@@ -68,7 +66,7 @@ exports.findAll_authors = async (req, res) => {
 
 }
 
-// todo: GET a single book
+// todo: GET a single author
 exports.findOne_author = async (req, res) => {
     const id = req.params.id
 
@@ -89,11 +87,11 @@ exports.findOne_author = async (req, res) => {
 
 }
 
-// todo: POST update an article by the id
+// todo: POST update an author by the id
 exports.update_author = async (req, res) => {
     const id = req.params.id
 
-    // get populated article
+    // get populated author
     const current_author_data = await Author.findByPk(id)
 
     // todo: Validating Properties
@@ -136,7 +134,7 @@ exports.update_author = async (req, res) => {
 
 }
 
-// todo: POST delete an article
+// todo: POST delete an author
 exports.delete_author = async (req, res) => {
     const id = req.params.id
 
@@ -209,7 +207,7 @@ exports.search_author = async (req, res) => {
     }
 }
 
-// todo: GET - THE NEWEST 10 ARTICLES
+// todo: GET - THE NEWEST 10 author
 exports.findAllRecent_author = async (req, res) => {
     try {
         const data = await sequelize.query(

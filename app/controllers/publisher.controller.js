@@ -9,8 +9,8 @@ const { QueryTypes }    = require('sequelize')
 
 // Association
 // Author - Book
-Publisher.hasOne(Book, { foreignKey: 'publisher_id'})
-Book.belongsTo(Author, { foreignKey: 'publisher_id', as: 'publisher_info' })
+// Publisher.hasOne(Book, { foreignKey: 'publisher_id'})
+// Book.belongsTo(Author, { foreignKey: 'publisher_id', as: 'publisher_info' })
 
 // todo: CREATE Publisher
 exports.create_publisher = async (req, res) => {

@@ -9,9 +9,13 @@ const { QueryTypes }    = require('sequelize')
 const { body, validationResult }    = require('express-validator')
 
 // Association
-// Author - Book
-Author.hasMany(Book, { foreignKey: 'author_id'})
-Book.belongsTo(Author, { foreignKey: 'author_id', as: 'author_info' })
+// Author - Book [ONE TO MANY]
+Author.hasMany(Book, { foreignKey: 'authorId' })
+Book.belongsTo(Author)
+
+// Publisher - Book [One to One]
+Publisher.hasOne(Book, { foreignKey: 'publisherId' })
+Book.belongsTo(Publisher, { foreignKey: 'publisherId', as: 'publisher_info' })
 
 // todo: CREATE BOOK
 exports.create_book = async (req, res) => {
@@ -31,10 +35,14 @@ exports.create_book = async (req, res) => {
             })
         }
 
-        const data_book = await Book.create({
+        const book = {
+            authorId: req.body.authorId,
+            publisherId: req.body.publisherId,
             title: req.body.title,
             summary: req.body.summary,
-        })
+        }
+
+        const data_book = await Book.create(book)
 
         if ( !data_book ) {
             return res.status(500).send({
@@ -62,7 +70,21 @@ exports.create_book = async (req, res) => {
 exports.findAll_books = async (req, res) => {
     
     try {
-        const data = await Book.findAll()
+        const data = await Book.findAll({
+            include: [
+                {
+                    model: Author,
+                    attributes: ["id", "name"],
+                    required: false
+                },
+                {
+                    model: Publisher,
+                    as: 'publisher_info',
+                    attributes: ["id", "name"],
+                    required: false
+                }
+            ]
+        })
 
         return res.status(200).send({
             success: true,

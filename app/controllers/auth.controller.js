@@ -86,7 +86,7 @@ exports.signin = (req, res) => {
         }
 
         // If password is right and true, give token for accessing authorized content
-        var token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 84600 }) // Expires in 24 hours
+        var token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 315569520000 }) // Expires in 10 years
 
         // Get user's roles, and give authorities role back when signing in
         var authorities = []

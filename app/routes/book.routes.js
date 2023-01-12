@@ -13,21 +13,7 @@ module.exports = function (app) {
     })
 
     // todo: route to POIST a single
-    app.post('/api/book/create', [ authJWT.verifyToken, authJWT.isAdmin ], [
-            // Validate and sanitize fields.
-        body("title", "Title must not be empty.")
-            .trim()
-            .isLength({ min: 1 })
-            .escape(),
-        // body("author", "Author must not be empty.")
-        //     .trim()
-        //     .isLength({ min: 1 })
-        //     .escape(),
-        body("summary", "Summary must not be empty.")
-            .trim()
-            .isLength({ min: 1 })
-            .escape(),
-    ], controller.create_book)
+    app.post('/api/book/create', [ authJWT.verifyToken, authJWT.isAdmin ], controller.create_book)
 
     // todo: route to POST update an book by the id
     app.put('/api/book/:id/update', [ authJWT.verifyToken, authJWT.verifyToken ], controller.update_book)
