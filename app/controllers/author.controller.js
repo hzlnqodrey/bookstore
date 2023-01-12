@@ -109,7 +109,7 @@ exports.update_author = async (req, res) => {
         }
 
         const data = await Author.update(author, {
-            where: { author_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -140,7 +140,7 @@ exports.delete_author = async (req, res) => {
 
     try {
         const data = await Author.destroy({
-            where: { author_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -203,36 +203,6 @@ exports.search_author = async (req, res) => {
     } catch (error) {
         return res.status(500).send({
             message: error.message || "There was some error while fetching Authors from database"
-        })
-    }
-}
-
-// todo: GET - THE NEWEST 10 author
-exports.findAllRecent_author = async (req, res) => {
-    try {
-        const data = await sequelize.query(
-            "SELECT * FROM authors ORDER BY createdAt DESC LIMIT 5",
-            {
-                type: QueryTypes.SELECT
-            }
-        )
-
-        if ( data != 0 ) {  
-            return res.status(200).send({
-                success: true,
-                message: "Recent author(s) were successfully retrieved",
-                data
-            })
-        } else {
-            return res.status(400).send({
-                success: false,
-                message: "Bad Request - Cannot get recent authors"
-            })
-        }
-
-    } catch (error) {
-        return res.status(500).send({
-            message: error.message || "There was some error while fetching authors from database"
         })
     }
 }

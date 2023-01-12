@@ -105,7 +105,21 @@ exports.findOne_book = async (req, res) => {
     const id = req.params.id
 
     try {
-        const data = await Book.findByPk(id)
+        const data = await Book.findByPk(id, {
+            include: [
+                {
+                    model: Author,
+                    attributes: ["id", "name"],
+                    required: false
+                },
+                {
+                    model: Publisher,
+                    as: 'publisher_info',
+                    attributes: ["id", "name"],
+                    required: false
+                }
+            ]
+        })
         
         return res.status(200).send({
             success: true,
@@ -144,7 +158,7 @@ exports.update_book = async (req, res) => {
         }
 
         const data = await Book.update(book, {
-            where: { book_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -175,7 +189,7 @@ exports.delete_book = async (req, res) => {
 
     try {
         const data = await Book.destroy({
-            where: { book_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -232,36 +246,6 @@ exports.search_book = async (req, res) => {
                 success: false,
                 message: "Bad Request - make it clear what you want to searching for",
                 NotFoundResults
-            })
-        }
-
-    } catch (error) {
-        return res.status(500).send({
-            message: error.message || "There was some error while fetching books from database"
-        })
-    }
-}
-
-// todo: GET - THE NEWEST 10 ARTICLES
-exports.findAllRecent_book = async (req, res) => {
-    try {
-        const data = await sequelize.query(
-            "SELECT * FROM books ORDER BY createdAt DESC LIMIT 5",
-            {
-                type: QueryTypes.SELECT
-            }
-        )
-
-        if ( data != 0 ) {  
-            return res.status(200).send({
-                success: true,
-                message: "Recent book(s) were successfully retrieved",
-                data
-            })
-        } else {
-            return res.status(400).send({
-                success: false,
-                message: "Bad Request - Cannot get recent books"
             })
         }
 

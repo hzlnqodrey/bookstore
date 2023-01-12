@@ -111,7 +111,7 @@ exports.update_publisher = async (req, res) => {
         }
 
         const data = await Publisher.update(publisher, {
-            where: { publisher_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -142,7 +142,7 @@ exports.delete_publisher = async (req, res) => {
 
     try {
         const data = await Publisher.destroy({
-            where: { publisher_id: id }
+            where: { id: id }
         })
 
         if ( data == 1 ) {
@@ -205,36 +205,6 @@ exports.search_publisher = async (req, res) => {
     } catch (error) {
         return res.status(500).send({
             message: error.message || "There was some error while fetching Publishers from database"
-        })
-    }
-}
-
-// todo: GET - THE NEWEST 10 ARTICLES
-exports.findAllRecent_publisher = async (req, res) => {
-    try {
-        const data = await sequelize.query(
-            "SELECT * FROM publishers ORDER BY createdAt DESC LIMIT 5",
-            {
-                type: QueryTypes.SELECT
-            }
-        )
-
-        if ( data != 0 ) {  
-            return res.status(200).send({
-                success: true,
-                message: "Recent publisher(s) were successfully retrieved",
-                data
-            })
-        } else {
-            return res.status(400).send({
-                success: false,
-                message: "Bad Request - Cannot get recent publishers"
-            })
-        }
-
-    } catch (error) {
-        return res.status(500).send({
-            message: error.message || "There was some error while fetching publishers from database"
         })
     }
 }

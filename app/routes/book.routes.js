@@ -24,9 +24,6 @@ module.exports = function (app) {
     // todo: route to POST - SEARCH QUERY FOR PUBLISHED book
     app.post('/api/book/search', controller.search_book) 
 
-    // todo: route to GET - THE NEWEST 10 bookS
-    app.get('/api/book/recent',  [ authJWT.verifyToken ], controller.findAllRecent_book)
-
     // todo: route to GET a single book
     app.get('/api/book/:id', [ authJWT.verifyToken, authJWT.isAdmin ], controller.findOne_book)
 
